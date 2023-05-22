@@ -34,12 +34,13 @@ namespace LibrarySystem.Repository
 
         public List<Book> GetBooksList()
         {
-            throw new NotImplementedException();
+            return _storage.GetData<Book>();
         }
 
         public List<Book> GetBorrowedBooksList(string username)
         {
-            throw new NotImplementedException();
+            return _storage.GetData<Book>().Where
+                       (u => u.BorrowerUsername == username).ToList();
         }
 
         public bool ReturnBook(string username, Book book)
