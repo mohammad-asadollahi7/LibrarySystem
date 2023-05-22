@@ -21,11 +21,6 @@ namespace LibrarySystem.Services
             return person;
         }
 
-        public string Logout(string name)
-        {
-            return $"{name}, you have successfully" +
-                         $" logged out of your account.";
-        }
 
         public bool Register(Person person)
         {
@@ -33,7 +28,7 @@ namespace LibrarySystem.Services
             var samePerson = personsList.FirstOrDefault(u => u.Username == person.Username);
             if (samePerson == null)
             {
-                if (person.Role == "1")
+                if (person is Member)
                 {
                     (person as Member).RegisterDate = DateTime.Today;
                 }
