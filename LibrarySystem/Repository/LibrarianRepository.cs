@@ -10,7 +10,7 @@ namespace LibrarySystem.Repository
 
         public LibrarianRepository(IStorage storage)
         {
-            _storage = _storage;
+            _storage = storage;
         }
 
         public string AddBook(Book book)

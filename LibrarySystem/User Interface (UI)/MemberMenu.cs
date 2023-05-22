@@ -15,6 +15,7 @@ namespace LibrarySystem.Services
             char backToMenu;
             List<Book> borrowedBooksList;
             string bookName = string.Empty;
+            string menuOption = string.Empty;
 
             do
             {
@@ -22,7 +23,7 @@ namespace LibrarySystem.Services
                                   "\n2.Returning Book" +
                                   "\n3.Showing Borrow books list" +
                                   "\n4.Exist");
-                var menuOption = Console.ReadLine();
+                menuOption = Console.ReadLine();
 
                 switch (menuOption)
                 {
@@ -32,7 +33,7 @@ namespace LibrarySystem.Services
                         if (isBorrowed)
                         {
                             Console.WriteLine("The book was successfully borrowed.");
-                            Console.WriteLine("Back to member menu (y/n):");
+                            Console.Write("Back to member menu (y/n): ");
                             backToMenu = Convert.ToChar(Console.ReadLine());
                             if (backToMenu == 'y')
                                 continueLoop = true;
@@ -64,7 +65,7 @@ namespace LibrarySystem.Services
                         if (isReturned)
                         {
                             Console.WriteLine($"{bookName} book was successfully returned.");
-                            Console.WriteLine("Back to member menu (y/n):");
+                            Console.Write("Back to member menu (y/n): ");
                              backToMenu = Convert.ToChar(Console.ReadLine());
                             if (backToMenu == 'y')
                                 continueLoop = true;
@@ -88,7 +89,7 @@ namespace LibrarySystem.Services
                             Console.WriteLine(book.BookName);
                         }
 
-                        Console.WriteLine("Back to member menu (y/n):");
+                        Console.Write("Back to member menu (y/n): ");
                         backToMenu = Convert.ToChar(Console.ReadLine());
                         if (backToMenu == 'y')
                             continueLoop = true;
