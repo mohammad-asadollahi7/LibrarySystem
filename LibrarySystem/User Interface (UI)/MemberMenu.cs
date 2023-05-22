@@ -57,7 +57,7 @@ namespace LibrarySystem.Services
                             Console.WriteLine(book.BookName);
                         }
 
-                        Console.WriteLine("\nBook name to return: ");
+                        Console.WriteLine("\nBook name for returning: ");
                         bookName = Console.ReadLine();
                         bool isReturned = libraryRepository.ReturnBook
                                                           (person.Username, bookName);

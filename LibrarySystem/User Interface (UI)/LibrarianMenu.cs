@@ -11,13 +11,13 @@ namespace LibrarySystem.User_Interface__UI_
         {
             LibrarianRepository librarianRepository
                             = new LibrarianRepository(storage);
-
             bool continueLoop = false;
-            string menuOption = string.Empty;
-            Book book = new Book();
             char backToMenu;
+            string menuOption = string.Empty;
             string message = string.Empty;
-
+            string bookName = string.Empty;
+            Book book = new Book();
+            List<Book> booksList;
 
             do
             {
@@ -52,26 +52,52 @@ namespace LibrarySystem.User_Interface__UI_
                         break;
 
                     case "2":
+                        booksList = librarianRepository.GetBooksList()
+                                           .Where(u => u.IsBorrowed == false).ToList();
+
+                        foreach (var b in booksList)
+                        {
+                            Console.WriteLine(b.BookName);
+                        }
+                        Console.WriteLine("Book name for removing: ");
+                        bookName = Console.ReadLine();
+
+                        bool isValid = librarianRepository.RemoveBook(bookName);
+                        if (isValid)
+                        {
+                            Console.WriteLine($"{bookName} book was successfully" +
+                                             "removed from the repository");
+
+                            Console.Write("Back to librarian menu (y/n): ");
+                            backToMenu = Convert.ToChar(Console.ReadLine());
+                            if (backToMenu == 'y')
+                                continueLoop = true;
+                            else
+                                continueLoop = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("The book name was invalid.");
+                            continueLoop = true;
+                        }
+                        break;
 
 
+                    case "3":
+                        booksList = librarianRepository.GetBooksList();
 
+                        foreach (var b in booksList)
+                        {
+                            Console.WriteLine("Book name: " + b.BookName + 
+                                        "   is it Borrowed?: " + b.IsBorrowed);
+                        }
 
-                        Console.Write("Back to librarian menu (y/n): ");
+                        Console.Write("\nBack to librarian menu (y/n): ");
                         backToMenu = Convert.ToChar(Console.ReadLine());
                         if (backToMenu == 'y')
                             continueLoop = true;
                         else
                             continueLoop = false;
-
-                        break;
-
-                    case "3":
-
-                        Console.Write("Back to librarian menu (y/n): ");
-                        backToMenu = Convert.ToChar(Console.ReadLine());
-                        if (backToMenu == 'y')
-                            continueLoop = true;
-
 
                         break;
 
@@ -83,13 +109,9 @@ namespace LibrarySystem.User_Interface__UI_
                         Console.WriteLine("The input is not valid.");
                         continueLoop = true;
                         break;
-
-
                 }
 
             } while (continueLoop);
-
-
         }
     }
 }

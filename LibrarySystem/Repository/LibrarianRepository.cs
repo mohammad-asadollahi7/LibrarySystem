@@ -29,10 +29,10 @@ namespace LibrarySystem.Repository
             return _storage.GetData<Book>();
         }
 
-        public bool RemoveBook(Book book)
+        public bool RemoveBook(string bookName)
         {
             var targetBook = _storage.GetAvailableBooks()
-                                .FirstOrDefault(u => u == book);
+                                .FirstOrDefault(u => u.BookName == bookName);
             if (targetBook != null)
             {
                 var BooksList = _storage.GetData<Book>();
