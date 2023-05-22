@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -35,9 +36,11 @@ namespace LibrarySystem.DataAccess
             return JsonConvert.DeserializeObject<List<T>>(tempString);
         }
 
-        public bool SetData<T>(T item)
+        public void SetData<T>(List<T> entities)
         {
-            throw new NotImplementedException();
+            string jsonFilePath = GetJsonPath<T>();
+            string tempString = JsonConvert.SerializeObject(entities);
+            File.WriteAllText(jsonFilePath, tempString);
         }
     }
 }

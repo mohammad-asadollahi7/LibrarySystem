@@ -12,7 +12,7 @@ namespace LibrarySystem.Abstraction
 
         List<T> GetData<T>();
 
-        bool SetData<T>(T item);
+        void SetData<T>(List<T> entities);
         
     }
 }
