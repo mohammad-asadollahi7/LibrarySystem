@@ -23,12 +23,12 @@ namespace LibrarySystem.DataAccess
             Type type = typeof(T);
             if (type == typeof(Person))
             {
-                var personsList = DataClass.Persons.Select(u => u).ToList();
+                var personsList = DataClass.Persons;
                 return (List<T>)Convert.ChangeType(personsList, type);
             }
             else if (type == typeof(Book))
             {
-                var booksList = DataClass.Books.Select(u => u).ToList();
+                var booksList = DataClass.Books;
                 return (List<T>)Convert.ChangeType(booksList, type);
             }
             return null;

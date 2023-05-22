@@ -16,7 +16,7 @@ namespace LibrarySystem.Repository
         public bool BorrowBook(string username, string bookName)
         {
             var requestedBook = _storage.GetAvailableBooks().
-                                    FirstOrDefault(u => u.bookName == bookName);
+                                FirstOrDefault(u => u.BookName == bookName);
 
             if (requestedBook != null)
             {
@@ -47,7 +47,7 @@ namespace LibrarySystem.Repository
         {
             var targetBook = _storage.GetData<Book>().FirstOrDefault
                                 (u => u.BorrowerUsername == username
-                                        && u.BookName == book.BookName);
+                                 && u.BookName == book.BookName);
 
             if (targetBook != null)
             {
