@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Mohammad",
+    "Username": "mohammad-asadi44",
+    "Password": "123",
+    "Role": "1",
+    "RegisterDate": "2020-09-05 00:00:00"
+  },
+
+  {
+    "Name": "Ali",
+    "Username": "zamani_12",
+    "Password": "321",
+    "Role": "1",
+    "RegisterDate": "2021-10-05 00:00:00"
+  },
+
+  {
+    "Name": "abbas",
+    "Username": "asadi_97a",
+    "Password": "989",
+    "Role": "2",
+    "PersonalityCode": 587
+  }
+]
+
+
