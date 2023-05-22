@@ -25,13 +25,13 @@ namespace LibrarySystem.Data
                 RegisterDate = Convert.ToDateTime("2023-05-11 00:00:00") },
 
             new Librarian() {Name = "abbas", Username = "abbas.i7",
-                Password = "989", Role = "2", PersonalityCode = "454"},
+                Password = "900", Role = "2", PersonalityCode = Guid.NewGuid()},
 
             new Librarian() {Name = "Mohammad", Username = "mohammad.kamani8",
-                Password = "846", Role = "2", PersonalityCode = "231"},
+                Password = "901", Role = "2", PersonalityCode = Guid.NewGuid()},
 
             new Librarian() {Name = "Mohammad", Username = "mohammad.z94",
-                Password = "274", Role = "2", PersonalityCode = "0986"},
+                Password = "902", Role = "2", PersonalityCode = Guid.NewGuid()},
 
         };
 

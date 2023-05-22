@@ -10,7 +10,7 @@ namespace LibrarySystem.Abstraction
     {
         bool Register(Person person);
         bool Login(string username, string password);
-        string Logout();
+        string Logout(string name);
 
     }
 }

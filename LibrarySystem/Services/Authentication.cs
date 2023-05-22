@@ -1,6 +1,7 @@
 ﻿
 
 using LibrarySystem.Abstraction;
+using LibrarySystem.Entities;
 
 namespace LibrarySystem.Services
 {
@@ -15,7 +16,7 @@ namespace LibrarySystem.Services
         public bool Login(string username, string password)
         {
             var personsList = _storage.GetData<Person>();
-            var person = personsList.FirstOrDefault(u => u.Username == username 
+            var person = personsList.FirstOrDefault(u => u.Username == username
                                                     && u.Password == password);
             if (person != null)
             {
@@ -27,16 +28,36 @@ namespace LibrarySystem.Services
             }
         }
 
-        public string Logout()
+        public string Logout(string name)
         {
-
-            throw new NotImplementedException();
+            return $"{name}, you have successfully" +
+                         $" logged out of your account.";
         }
 
         public bool Register(Person person)
         {
+            var personsList = _storage.GetData<Person>();
+            var samePerson = personsList.FirstOrDefault(u => u.Username == person.Username);
+            if (samePerson == null)
+            {
+                if (person.Role == "1")
+                {
+                    (person as Member).RegisterDate = DateTime.Today;
+                }
+                else
+                {
+                    (person as Librarian).PersonalityCode = Guid.NewGuid();
+                }
 
-            throw new NotImplementedException();
+                personsList.Add(person);
+                _storage.SetData<Person>(personsList);
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
         }
     }
 }

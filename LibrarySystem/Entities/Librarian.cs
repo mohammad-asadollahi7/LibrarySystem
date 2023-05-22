@@ -9,7 +9,7 @@ namespace LibrarySystem.Entities
 {
     public class Librarian : Person
     {
-        public string PersonalityCode { get; set; }
+        public Guid PersonalityCode { get; set; }
 
     }
 }
