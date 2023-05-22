@@ -8,6 +8,11 @@ namespace LibrarySystem.Repository
     {
         IStorage _storage;
 
+        public LibrarianRepository(IStorage storage)
+        {
+            _storage = _storage;
+        }
+
         public string AddBook(Book book)
         {
             var booksList = _storage.GetData<Book>();
