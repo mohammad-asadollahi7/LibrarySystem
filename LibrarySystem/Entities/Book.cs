@@ -14,6 +14,6 @@ namespace LibrarySystem.Entities
         public Genres Genre { get; set; }
         public bool IsBorrowed { get; set; }
         public string? BorrowerUsername {get ; set; }
-        public DateTime? BorrowerDate { get; set; }
+        public DateTime? BorrowDate { get; set; }
     }
 }

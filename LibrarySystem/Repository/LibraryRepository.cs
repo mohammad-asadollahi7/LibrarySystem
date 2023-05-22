@@ -45,7 +45,21 @@ namespace LibrarySystem.Repository
 
         public bool ReturnBook(string username, Book book)
         {
-            throw new NotImplementedException();
+            var targetBook = _storage.GetData<Book>().FirstOrDefault
+                                (u => u.BorrowerUsername == username
+                                        && u.BookName == book.BookName);
+
+            if (targetBook != null)
+            {
+                targetBook.IsBorrowed = false;
+                targetBook.BorrowerUsername = null;
+                targetBook.BorrowDate = null;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
