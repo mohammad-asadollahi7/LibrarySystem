@@ -9,7 +9,7 @@ namespace LibrarySystem.Abstraction
     public interface IAuthentication
     {
         bool Register(Person person);
-        bool Login(string username, string password);
+        Person Login(string username, string password);
         string Logout(string name);
 
     }

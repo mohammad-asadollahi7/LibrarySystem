@@ -13,19 +13,12 @@ namespace LibrarySystem.Services
         {
             _storage = storage;
         }
-        public bool Login(string username, string password)
+        public Person Login(string username, string password)
         {
             var personsList = _storage.GetData<Person>();
             var person = personsList.FirstOrDefault(u => u.Username == username
                                                     && u.Password == password);
-            if (person != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return person;
         }
 
         public string Logout(string name)

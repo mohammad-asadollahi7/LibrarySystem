@@ -1,29 +1,44 @@
 ﻿using LibrarySystem.Abstraction;
 using LibrarySystem.Entities;
 using LibrarySystem.Repository;
-using System;
+
 
 namespace LibrarySystem.Services
 {
     public class MemberMenu
     {
-        public void Menu(IStorage storage, string username, string password)
+        public void Menu(IStorage storage, Person person)
         {
-            LibraryRepository libraryRepository = new LibraryRepository(storage);
+            LibraryRepository libraryRepository
+                        = new LibraryRepository(storage);
             bool continueLoop = false;
+            char backToMenu;
+            List<Book> borrowedBooksList;
+            string bookName = string.Empty;
+
             do
             {
                 Console.WriteLine("1.Borrowing book" +
                                   "\n2.Returning Book" +
-                                  "\n3.Showing Borrow books list");
+                                  "\n3.Showing Borrow books list" +
+                                  "\n4.Exist");
                 var menuOption = Console.ReadLine();
 
                 switch (menuOption)
                 {
                     case "1":
-                        bool isBorrowed = libraryRepository.BorrowBook(username, password);
+                        bool isBorrowed = libraryRepository.BorrowBook
+                                                (person.Username, person.Password);
                         if (isBorrowed)
+                        {
                             Console.WriteLine("The book was successfully borrowed.");
+                            Console.WriteLine("Back to member menu (y/n):");
+                            backToMenu = Convert.ToChar(Console.ReadLine());
+                            if (backToMenu == 'y')
+                                continueLoop = true;
+                            else
+                                continueLoop = false;
+                        }
                         else
                         {
                             Console.WriteLine("The Book was not found.");
@@ -33,31 +48,63 @@ namespace LibrarySystem.Services
 
                     case "2":
 
-                        var borrowedBooksList = libraryRepository.GetBorrowedBooksList(username);
-                        Console.WriteLine("Books borrowed by you: ");
+                         borrowedBooksList = libraryRepository.GetBorrowedBooksList
+                                                                    (person.Username);
+                        Console.WriteLine($"Books borrowed by {person.Name}: ");
                         foreach (var book in borrowedBooksList)
                         {
                             Console.WriteLine(book.BookName);
                         }
 
-                        Console.WriteLine("Book name to return: ");
-                        var bookName = Console.ReadLine();
-                        bool isReturned = libraryRepository.ReturnBook(username, bookName);
+                        Console.WriteLine("\nBook name to return: ");
+                        bookName = Console.ReadLine();
+                        bool isReturned = libraryRepository.ReturnBook
+                                                          (person.Username, bookName);
 
                         if (isReturned)
+                        {
                             Console.WriteLine($"{bookName} book was successfully returned.");
+                            Console.WriteLine("Back to member menu (y/n):");
+                             backToMenu = Convert.ToChar(Console.ReadLine());
+                            if (backToMenu == 'y')
+                                continueLoop = true;
+                            else
+                                continueLoop = false;
+                        }
                         else
                         {
-                            Console.WriteLine($"This member has not borrowed" +
+                            Console.WriteLine($"{person.Name} has not borrowed" +
                                                  $" {bookName} book before.");
                             continueLoop = true;
                         }
                         break;
 
-                     
+                    case "3":
+                        borrowedBooksList = libraryRepository.GetBorrowedBooksList
+                                                                   (person.Username);
+                        Console.WriteLine($"Books borrowed by {person.Name}:\n");
+                        foreach (var book in borrowedBooksList)
+                        {
+                            Console.WriteLine(book.BookName);
+                        }
 
+                        Console.WriteLine("Back to member menu (y/n):");
+                        backToMenu = Convert.ToChar(Console.ReadLine());
+                        if (backToMenu == 'y')
+                            continueLoop = true;
+                        else
+                            continueLoop = false;
 
+                        break;
 
+                    case "4":
+                        Console.WriteLine("Good bye.");
+                        break;
+
+                    default:
+                        Console.WriteLine("The input is not valid.");
+                        continueLoop = true;
+                        break;
                 }
             } while (continueLoop);
 
