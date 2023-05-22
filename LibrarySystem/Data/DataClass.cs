@@ -9,7 +9,7 @@ namespace LibrarySystem.Data
 {
     public static class DataClass
     {
-        public static List<Person> persons = new List<Person>()
+        public static List<Person> Persons = new List<Person>()
         {
             new Member() {Name = "Mohammad", Username = "mohammad.a75",
                 Password = "123", Role = "1",
@@ -35,7 +35,7 @@ namespace LibrarySystem.Data
         };
 
 
-        public static List<Book> books = new List<Book>()
+        public static List<Book> Books = new List<Book>()
         {
                  new Book() {ID = Guid.NewGuid(),
                      NameofBook = "Math", Author = "Ebrahimi",
