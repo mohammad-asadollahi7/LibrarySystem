@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Abstraction\" />
     <Folder Include="Data\" />
     <Folder Include="DataAccess\" />
     <Folder Include="Entities\" />
