@@ -43,11 +43,11 @@ namespace LibrarySystem.Repository
                        (u => u.BorrowerUsername == username).ToList();
         }
 
-        public bool ReturnBook(string username, Book book)
+        public bool ReturnBook(string username, string bookName)
         {
             var targetBook = _storage.GetData<Book>().FirstOrDefault
                                 (u => u.BorrowerUsername == username
-                                 && u.BookName == book.BookName);
+                                 && u.BookName == bookName);
 
             if (targetBook != null)
             {

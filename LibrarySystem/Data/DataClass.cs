@@ -63,7 +63,7 @@ namespace LibrarySystem.Data
                      BorrowDate = Convert.ToDateTime("2023-02-02 00:00:00")},
 
                  new Book() {ID = Guid.NewGuid(),
-                     BookName = "soccer", Author = "Amini",
+                     BookName = "Soccer", Author = "Amini",
                      Genre = Genres.Sport,
                      IsBorrowed = true, BorrowerUsername = "mohammad.z94",
                      BorrowDate = Convert.ToDateTime("2022-02-02 00:00:00")},

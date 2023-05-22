@@ -1,4 +1,5 @@
 ﻿using LibrarySystem.Abstraction;
+using LibrarySystem.Entities;
 using LibrarySystem.Repository;
 using System;
 
@@ -8,7 +9,7 @@ namespace LibrarySystem.Services
     {
         public void Menu(IStorage storage, string username, string password)
         {
-            LibraryRepository lr = new LibraryRepository(storage);
+            LibraryRepository libraryRepository = new LibraryRepository(storage);
             bool continueLoop = false;
             do
             {
@@ -20,7 +21,7 @@ namespace LibrarySystem.Services
                 switch (menuOption)
                 {
                     case "1":
-                        bool isBorrowed = lr.BorrowBook(username, password);
+                        bool isBorrowed = libraryRepository.BorrowBook(username, password);
                         if (isBorrowed)
                             Console.WriteLine("The book was successfully borrowed.");
                         else
@@ -29,6 +30,31 @@ namespace LibrarySystem.Services
                             continueLoop = true;    
                         }
                         break;
+
+                    case "2":
+
+                        var borrowedBooksList = libraryRepository.GetBorrowedBooksList(username);
+                        Console.WriteLine("Books borrowed by you: ");
+                        foreach (var book in borrowedBooksList)
+                        {
+                            Console.WriteLine(book.BookName);
+                        }
+
+                        Console.WriteLine("Book name to return: ");
+                        var bookName = Console.ReadLine();
+                        bool isReturned = libraryRepository.ReturnBook(username, bookName);
+
+                        if (isReturned)
+                            Console.WriteLine($"{bookName} book was successfully returned.");
+                        else
+                        {
+                            Console.WriteLine($"This member has not borrowed" +
+                                                 $" {bookName} book before.");
+                            continueLoop = true;
+                        }
+                        break;
+
+                     
 
 
 
