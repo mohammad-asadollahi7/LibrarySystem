@@ -1,10 +1,6 @@
 ﻿using LibrarySystem.Abstraction;
 using LibrarySystem.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace LibrarySystem.Repository
 {
@@ -15,6 +11,8 @@ namespace LibrarySystem.Repository
         public string AddBook(Book book)
         {
             var booksList = _storage.GetData<Book>();
+            book.ID = Guid.NewGuid();
+            book.IsBorrowed = false;
             booksList.Add(book);
             _storage.SetData(booksList);
             return $"The {book.BookName} book has been " +
@@ -23,14 +21,25 @@ namespace LibrarySystem.Repository
 
         public List<Book> GetBooksList()
         {
-
-            throw new NotImplementedException();
+            return _storage.GetData<Book>();
         }
 
         public bool RemoveBook(Book book)
         {
+            var targetBook = _storage.GetAvailableBooks()
+                                .FirstOrDefault(u => u == book);
+            if (targetBook != null)
+            {
+                var BooksList = _storage.GetData<Book>();
+                BooksList.Remove(targetBook);
+                _storage.SetData<Book>(BooksList);
+                return true;
+            }
 
-            throw new NotImplementedException();
+            else
+            {
+                return false;
+            }
         }
     }
 }

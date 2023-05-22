@@ -1,4 +1,5 @@
 ﻿using LibrarySystem.Abstraction;
+using LibrarySystem.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,7 @@ namespace LibrarySystem.DataAccess
             string jsonFilePath = GetJsonPath<Book>();
             string tempString = File.ReadAllText(jsonFilePath);
             var availableBooks = JsonConvert.DeserializeObject<List<Book>>(tempString);
-            return availableBooks.Where(u => u.IsBorrowed == false);
+            return availableBooks.Where(u => u.IsBorrowed == false).ToList();
         }
 
         public List<T> GetData<T>()

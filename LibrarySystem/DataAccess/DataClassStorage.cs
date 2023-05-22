@@ -1,5 +1,6 @@
 ﻿using LibrarySystem.Abstraction;
 using LibrarySystem.Data;
+using LibrarySystem.Entities;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,7 @@ namespace LibrarySystem.DataAccess
                 var booksList = DataClass.Books.Select(u => u).ToList();
                 return (List<T>)Convert.ChangeType(booksList, type);
             }
+            return null;
         }
 
         public void SetData<T>(List<T> entities)
@@ -42,8 +44,8 @@ namespace LibrarySystem.DataAccess
             }
             else if (type == typeof(Book))
             {
-                DataClass.Persons.Clear();
-                DataClass.Persons.Add(entities as Book);
+                DataClass.Books.Clear();
+                DataClass.Books.Add(entities as Book);
             }
         }
     }
