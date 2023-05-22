@@ -18,16 +18,21 @@ namespace LibrarySystem.DataAccess
                             .Parent?.Parent?.Parent?.FullName;
             string? dataFolderPath = Path.Combine(projectPath, "Data");
             string? jsonFilePath = Path.Combine(dataFolderPath, $"{type}.json");
-            return jsonFilePath;        
+            return jsonFilePath;
         }
         public List<Book> GetAvailableBooks()
         {
-
+            string jsonFilePath = GetJsonPath<Book>();
+            string tempString = File.ReadAllText(jsonFilePath);
+            var availableBooks = JsonConvert.DeserializeObject<List<Book>>(tempString);
+            return availableBooks.Where(u => u.IsBorrowed == false);
         }
 
         public List<T> GetData<T>()
         {
-            throw new NotImplementedException();
+            string jsonFilePath = GetJsonPath<T>();
+            string tempString = File.ReadAllText(jsonFilePath);
+            return JsonConvert.DeserializeObject<List<T>>(tempString);
         }
 
         public bool SetData<T>(T item)
