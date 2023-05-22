@@ -27,14 +27,24 @@ namespace LibrarySystem.DataAccess
             }
             else if (type == typeof(Book))
             {
-                var booksList = DataClass.Persons.Select(u => u).ToList();
+                var booksList = DataClass.Books.Select(u => u).ToList();
                 return (List<T>)Convert.ChangeType(booksList, type);
             }
         }
 
         public void SetData<T>(List<T> entities)
         {
-            throw new NotImplementedException();
+            Type type = typeof(T);
+            if (type == typeof(Person))
+            {
+                DataClass.Persons.Clear();
+                DataClass.Persons.Add(entities as Person);
+            }
+            else if (type == typeof(Book))
+            {
+                DataClass.Persons.Clear();
+                DataClass.Persons.Add(entities as Book);
+            }
         }
     }
 }
