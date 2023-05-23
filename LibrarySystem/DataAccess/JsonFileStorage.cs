@@ -1,13 +1,6 @@
 ﻿using LibrarySystem.Abstraction;
 using LibrarySystem.Entities;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace LibrarySystem.DataAccess
 {
@@ -19,7 +12,7 @@ namespace LibrarySystem.DataAccess
             string? projectPath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?
                             .Parent?.Parent?.Parent?.FullName;
             string? dataFolderPath = Path.Combine(projectPath, "Data");
-            string? jsonFilePath = Path.Combine(dataFolderPath, $"{type}.json");
+            string? jsonFilePath = Path.Combine(dataFolderPath, $"{type.Name}.json");
             return jsonFilePath;
         }
         public List<Book> GetAvailableBooks()

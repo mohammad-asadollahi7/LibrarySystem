@@ -1,6 +1,5 @@
 ﻿using LibrarySystem.Abstraction;
 using LibrarySystem.Entities;
-using System.Globalization;
 
 namespace LibrarySystem.Repository
 {
@@ -15,14 +14,17 @@ namespace LibrarySystem.Repository
 
         public bool BorrowBook(string username, string bookName)
         {
-            var requestedBook = _storage.GetAvailableBooks().
-                                FirstOrDefault(u => u.BookName == bookName);
+            var booksList = _storage.GetData<Book>();
+            var requestedBook = booksList.FirstOrDefault
+                                (u => u.BookName == bookName
+                                  && u.IsBorrowed == false);
 
             if (requestedBook != null)
             {
                 requestedBook.IsBorrowed = true;
                 requestedBook.BorrowerUsername = username;
                 requestedBook.BorrowDate = DateTime.Today;
+                _storage.SetData<Book>(booksList);
                 return true;
             }
             else
@@ -37,7 +39,7 @@ namespace LibrarySystem.Repository
             return _storage.GetData<Book>();
         }
 
-        public List<Book> GetBorrowedBooksList(string username)
+        public List<Book> GetBorrowedBooksList(string? username)
         {
             return _storage.GetData<Book>().Where
                        (u => u.BorrowerUsername == username).ToList();
@@ -45,7 +47,8 @@ namespace LibrarySystem.Repository
 
         public bool ReturnBook(string username, string bookName)
         {
-            var targetBook = _storage.GetData<Book>().FirstOrDefault
+            var booksList = _storage.GetData<Book>();
+            var targetBook = booksList?.FirstOrDefault
                                 (u => u.BorrowerUsername == username
                                  && u.BookName == bookName);
 
@@ -54,6 +57,7 @@ namespace LibrarySystem.Repository
                 targetBook.IsBorrowed = false;
                 targetBook.BorrowerUsername = null;
                 targetBook.BorrowDate = null;
+                _storage.SetData<Book>(booksList);
                 return true;
             }
             else

@@ -2,23 +2,25 @@
 using LibrarySystem.DataAccess;
 using LibrarySystem.Entities;
 using LibrarySystem.Services;
+using LibrarySystem.User_Interface__UI_;
 
 class Program
 {
     static void Main()
     {
         MemberMenu memberMenu = new MemberMenu();
+        LibrarianMenu librarianMenu = new LibrarianMenu();
         Person person;
-        bool continueLoop = false;
-        string menuOption2 = string.Empty;
-        string name = string.Empty;
-        string username = string.Empty;
-        string password = string.Empty;
-        string role = string.Empty;
+        bool continueLoop;
+        string menuOption2;
+        string name;
+        string username;
+        string password;
+        string role;
         IStorage storage;
 
         Console.WriteLine("Enter the mode of getting and setting data: ");
-        Console.WriteLine("1.Json file\n2.static class\n");
+        Console.WriteLine("1.Json file\n2.static class");
         string menuOption = Console.ReadLine();
         if (menuOption == "1")
             storage = new JsonFileStorage();
@@ -26,14 +28,13 @@ class Program
             storage = new DataClassStorage();
 
         Authentication authentication = new Authentication(storage);
-        
-
+        Console.Clear();
 
         do
         {
-            Console.WriteLine("1.Login\n2.Register\n");
+            Console.WriteLine("1.Login\n2.Register");
             menuOption2 = Console.ReadLine();
-
+            Console.Clear();
             if (menuOption2 == "1")
             {
                 Console.WriteLine("Login section:");
@@ -48,12 +49,16 @@ class Program
 
                 if (person != null)
                 {
-                    Console.WriteLine("Welcome to the member menu\n");
-                    memberMenu.Menu(storage, person);
+                    if (person.Role == "1")
+                           memberMenu.Menu(storage, person);
+                    else
+                        librarianMenu.Menu(storage);
+
                     continueLoop = false;
                 }
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("The username or " +
                                          "password is not correct.");
                     continueLoop = true;
@@ -62,6 +67,7 @@ class Program
 
             else if (menuOption2 == "2")
             {
+                Console.Clear();
                 Console.WriteLine("Register section: ");
                 Console.Write("Enter your name: ");
                 name = Console.ReadLine();
@@ -86,7 +92,7 @@ class Program
                         Role = role
                     });
                     continueLoop = true;
-
+                    Console.Clear();
                 }
 
                 else if (role == "2")
@@ -99,10 +105,12 @@ class Program
                         Role = role
                     });
                     continueLoop = true;
+                    Console.Clear();
                 }
 
                 else
                 {
+                    Console.Clear();
                     Console.WriteLine("The input is not valid.");
                     continueLoop = true;
                 }
@@ -110,6 +118,7 @@ class Program
 
             else
             {
+                Console.Clear();
                 Console.WriteLine("The input is not valid.");
                 continueLoop = true;
             }

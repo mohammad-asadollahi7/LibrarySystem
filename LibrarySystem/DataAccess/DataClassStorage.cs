@@ -1,12 +1,8 @@
 ﻿using LibrarySystem.Abstraction;
 using LibrarySystem.Data;
 using LibrarySystem.Entities;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections;
+
 
 namespace LibrarySystem.DataAccess
 {
@@ -20,18 +16,19 @@ namespace LibrarySystem.DataAccess
 
         public List<T> GetData<T>()
         {
+            List<T> data = new List<T>();
             Type type = typeof(T);
             if (type == typeof(Person))
             {
                 var personsList = DataClass.Persons;
-                return (List<T>)Convert.ChangeType(personsList, type);
+                data = ((IEnumerable)personsList).Cast<T>().ToList();
             }
             else if (type == typeof(Book))
             {
                 var booksList = DataClass.Books;
-                return (List<T>)Convert.ChangeType(booksList, type);
+                data = ((IEnumerable)booksList).Cast<T>().ToList();
             }
-            return null;
+            return data;
         }
 
         public void SetData<T>(List<T> entities)
@@ -40,12 +37,15 @@ namespace LibrarySystem.DataAccess
             if (type == typeof(Person))
             {
                 DataClass.Persons.Clear();
-                DataClass.Persons.Add(entities as Person);
+                for (int i = 0; i < entities.Count(); i++)
+                    DataClass.Persons.Add(entities[i] as Person);
+                
             }
             else if (type == typeof(Book))
             {
                 DataClass.Books.Clear();
-                DataClass.Books.Add(entities as Book);
+                for (int i =0; i < entities.Count(); i++)
+                    DataClass.Books.Add(entities[i] as Book);
             }
         }
     }

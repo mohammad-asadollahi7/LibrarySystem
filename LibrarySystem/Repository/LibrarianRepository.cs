@@ -31,12 +31,12 @@ namespace LibrarySystem.Repository
 
         public bool RemoveBook(string bookName)
         {
-            var targetBook = _storage.GetAvailableBooks()
-                                .FirstOrDefault(u => u.BookName == bookName);
+            var BooksList = _storage.GetData<Book>();
+            var targetBook = BooksList? .FirstOrDefault
+                                (u => u.BookName == bookName);
             if (targetBook != null)
             {
-                var BooksList = _storage.GetData<Book>();
-                BooksList.Remove(targetBook);
+                BooksList?.Remove(targetBook);
                 _storage.SetData<Book>(BooksList);
                 return true;
             }
